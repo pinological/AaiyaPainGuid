@@ -1,0 +1,7 @@
+{
+  "name": "Demo user",
+  "age": 34,
+  "weight_kg": 72,
+  "height_cm": 175,
+  "gender": "other"
+}

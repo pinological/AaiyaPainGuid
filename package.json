@@ -1,0 +1,38 @@
+{
+  "name": "mirror-anatomy",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "typecheck": "tsc --noEmit",
+    "index": "tsx scripts/build-name-index.ts",
+    "warm": "tsx scripts/warm-cache.ts",
+    "regions": "tsx scripts/build-regions.ts",
+    "phrases": "tsx scripts/test-phrases.ts",
+    "translate": "tsx scripts/translate-parts.ts",
+    "postinstall": "node scripts/copy-draco.mjs"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.0.0",
+    "@react-three/fiber": "^9.1.0",
+    "gsap": "^3.12.7",
+    "leva": "^0.10.1",
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.176.0",
+    "three-stdlib": "^2.35.0",
+    "zod": "^3.24.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.176.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

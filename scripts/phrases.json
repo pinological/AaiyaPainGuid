@@ -1,0 +1,22 @@
+[
+  { "phrase": "back of my knee when I run", "expect": ["popliteus", "gastrocnemius", "semitendinosus", "semimembranosus", "biceps femoris"] },
+  { "phrase": "right shoulder when I lift my arm", "expect": ["deltoid", "supraspinatus", "infraspinatus", "trapezius"] },
+  { "phrase": "lower back after sitting all day", "expect": ["erector", "quadratus lumborum", "multifidus", "iliocostalis", "longissimus"] },
+  { "phrase": "inside of my forearm when gripping", "expect": ["flexor"] },
+  { "phrase": "my left calf cramps", "expect": ["gastrocnemius", "soleus"] },
+  { "phrase": "front of my hip when I climb stairs", "expect": ["iliopsoas", "psoas", "iliacus", "rectus femoris", "sartorius"] },
+  { "phrase": "the top of my shoulder near my neck feels tight", "expect": ["trapezius", "levator scapulae"] },
+  { "phrase": "my bicep hurts when I curl", "expect": ["biceps brachii", "brachialis"] },
+  { "phrase": "pain on the outside of my elbow when I shake hands", "expect": ["extensor carpi radialis", "supinator", "extensor digitorum"] },
+  { "phrase": "sore glutes after squats", "expect": ["gluteus"] },
+  { "phrase": "tight hamstrings", "expect": ["biceps femoris", "semitendinosus", "semimembranosus"] },
+  { "phrase": "front of my thigh burns going downhill", "expect": ["rectus femoris", "vastus"] },
+  { "phrase": "my chest is sore after bench press", "expect": ["pectoralis major"] },
+  { "phrase": "pain between my shoulder blades", "expect": ["rhomboid", "trapezius"] },
+  { "phrase": "shin pain when I run", "expect": ["tibialis anterior", "extensor digitorum longus"] },
+  { "phrase": "my abs hurt after sit ups", "expect": ["rectus abdominis", "oblique"] },
+  { "phrase": "the arch of my foot hurts in the morning", "expect": ["plantar aponeurosis", "flexor digitorum brevis","abductor hallucis", "flexor hallucis brevis", "quadratus plantae"] },
+  { "phrase": "pain at the base of my thumb", "expect": ["abductor pollicis", "opponens pollicis", "flexor pollicis"] },
+  { "phrase": "side of my neck is stiff", "expect": ["sternocleidomastoid", "scalene", "trapezius", "levator scapulae"] },
+  { "phrase": "what's the weather", "expect": null }
+]
