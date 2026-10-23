@@ -4,12 +4,28 @@ Say (or type) where it hurts, in English, Nepali or Japanese. **Jev** works out 
 
 People's Choice Award winner.
 
+<p align="center">
+  <img src="docs/demo.gif" alt="Aaiya Pain Guide promo (GIF preview)" width="320" />
+</p>
+
+<p align="center"><i>GIF preview. The full video has narration, music and the app's own voice.</i></p>
+
 ## Watch the promo video
 
 - **Download the video (MP4, 1080x1920, about 2 min):** [aaiya-pain-guide-9x16.mp4](https://github.com/pinological/AaiyaPainGuid/raw/master/hyperframe/renders/aaiya-pain-guide-9x16.mp4)
 - Play it on GitHub: [hyperframe/renders/aaiya-pain-guide-9x16.mp4](hyperframe/renders/aaiya-pain-guide-9x16.mp4)
 - **Download the whole project:** green **Code** button, then **Download ZIP**, or open
   <https://github.com/pinological/AaiyaPainGuid/archive/refs/heads/master.zip>
+
+## Screenshots
+
+| Ask | Answer | In Nepali |
+| --- | --- | --- |
+| ![Home](docs/home.jpg) | ![Answer](docs/answer.jpg) | ![Nepali](docs/nepali.jpg) |
+
+The promo video, frame by frame:
+
+![Promo video frames](docs/video-frames.jpg)
 
 ## How it works
 
