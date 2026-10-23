@@ -1,0 +1,60 @@
+<template>
+  <style>
+    #s9-root { position: absolute; inset: 0; overflow: hidden; }
+    #s9-root .mark { position: absolute; left: 60px; width: 960px; top: 250px; display: flex; align-items: center; justify-content: center; gap: 22px; opacity: 0; }
+    #s9-root .mark svg { width: 92px; height: 92px; overflow: visible; }
+    #s9-root .mark span { font-family: var(--serif); font-weight: 650; font-size: 64px; letter-spacing: -0.01em; color: var(--ink); }
+    #s9-root .big { position: absolute; left: 60px; width: 960px; top: 380px; text-align: center; }
+    #s9-root .big .l { display: block; font-family: var(--serif); font-weight: 750; font-size: 168px; line-height: 0.98; letter-spacing: -0.03em; color: var(--ink); }
+    #s9-root .big .l .w { display: inline-block; }
+    #s9-root .big .l.acc .w { color: var(--accent); font-style: italic; font-weight: 600; }
+    #s9-root .move { position: absolute; left: 60px; width: 960px; top: 760px; text-align: center; font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 84px; letter-spacing: -0.015em; color: var(--accent); opacity: 0; }
+    #s9-root .stack { position: absolute; left: 60px; width: 960px; top: 900px; text-align: center; font-family: var(--mono); font-size: 25px; letter-spacing: 0.1em; color: var(--muted); line-height: 1.7; opacity: 0; }
+    #s9-root .stack b { color: var(--ink); font-weight: 700; }
+    #s9-root .award { position: absolute; left: 190px; top: 1108px; width: 700px; height: 86px; border-radius: 43px; background: var(--paper); color: #2b2a27; display: flex; align-items: center; justify-content: center; gap: 16px; font-family: var(--mono); font-weight: 700; font-size: 24px; letter-spacing: 0.14em; opacity: 0; box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 70px rgba(255,122,89,0.3); }
+    #s9-root .win { top: 1300px; opacity: 0; left: 48px; }
+        #s9-root .disc { position: absolute; left: 90px; width: 900px; top: 1212px; text-align: center; font-family: var(--mono); font-size: 23px; letter-spacing: 0.08em; line-height: 1.5; color: var(--muted); opacity: 0; }
+    #s9-root .link { position: absolute; left: 90px; width: 900px; top: 1000px; height: 88px; border-radius: 44px; background: var(--accent); color: #1c1a17; display: flex; align-items: center; justify-content: center; gap: 14px; font-family: var(--mono); font-weight: 700; font-size: 27px; letter-spacing: 0.01em; opacity: 0; box-shadow: 0 0 60px rgba(255,122,89,0.5); }
+    #s9-root .fade { position: absolute; inset: 0; background: #151412; opacity: 0; }
+  </style>
+
+  <div id="s9-root" data-composition-id="s9-cta" data-width="1080" data-height="1920">
+    <div class="mark" id="s9-mark">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M5.5 8.5a11 11 0 0 0 0 9" fill="none" stroke="#f1ede4" stroke-width="1.8" stroke-linecap="round" opacity="0.8" />
+        <path d="M26.5 8.5a11 11 0 0 1 0 9" fill="none" stroke="#f1ede4" stroke-width="1.8" stroke-linecap="round" opacity="0.8" />
+        <path d="M16 30S7 20.5 7 13.5a9 9 0 0 1 18 0C25 20.5 16 30 16 30Z" fill="#ff7a59" />
+        <circle cx="16" cy="13.5" r="3.6" fill="#151412" />
+      </svg>
+      <span>Aaiya Pain Guide</span>
+    </div>
+    <div class="big" id="s9-big">
+      <span class="l"><span class="w">Say</span> <span class="w">where</span></span>
+      <span class="l acc"><span class="w">it</span> <span class="w">hurts.</span></span>
+    </div>
+    <div class="move" id="s9-move">Move better today.</div>
+    <div class="stack" id="s9-stack">BUILT WITH <b>Next.js</b> · <b>Three.js</b> · <b>GSAP</b><br><b>Jev</b> + <b>DeepSeek</b> via OpenRouter</div>
+    <div class="link" id="s9-link"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1c1a17" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>GET IT · github.com/pinological/AaiyaPainGuid</div>
+    <div class="award" id="s9-award"><svg width="34" height="34" viewBox="0 0 24 24" fill="#e0502f"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>PEOPLE'S CHOICE AWARD WINNER</div>
+    <div class="disc" id="s9-disc">EDUCATION, NOT DIAGNOSIS · SEVERE PAIN? SEE A DOCTOR</div>
+    <div class="win" id="s9-win"><div class="bar"><i></i><i></i><i></i><span>AAIYA PAIN GUIDE</span></div><div class="wc"><div class="zg"><img class="base" src="assets/captures/d-en-3-answer.png" alt="" /></div></div></div>
+    <div class="fade" id="s9-fade"></div>
+  </div>
+
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      tl.fromTo("#s9-mark", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.3);
+      tl.fromTo("#s9-big .w", { y: 120, opacity: 0, rotate: 3 }, { y: 0, opacity: 1, rotate: 0, duration: 0.65, ease: "back.out(1.5)", stagger: 0.12 }, 1.75);
+      tl.fromTo("#s9-move", { opacity: 0, y: 40, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }, 2.9);
+      tl.fromTo("#s9-stack", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 3.3);
+      tl.fromTo("#s9-award", { opacity: 0, y: 30, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 3.6);
+      tl.to("#s9-big", { scale: 1.04, duration: 3.2, ease: "sine.inOut" }, 2.0);
+      tl.fromTo("#s9-link", { opacity: 0, y: 40, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 3.45);
+      tl.fromTo("#s9-disc", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 4.0);
+      tl.fromTo("#s9-win", { opacity: 0, y: 500, rotate: -3 }, { opacity: 1, y: 0, rotate: -3, duration: 0.9, ease: "expo.out" }, 3.1);
+      tl.to("#s9-fade", { opacity: 1, duration: 0.5, ease: "power1.in" }, 5.1);
+      window.__timelines["s9-cta"] = tl;
+    })();
+  </script>
+</template>

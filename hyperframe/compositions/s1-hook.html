@@ -1,0 +1,109 @@
+<template>
+  <style>
+    #s1-root { position: absolute; inset: 0; overflow: hidden; }
+    #s1-root .ghost { position: absolute; left: 40px; top: 1060px; font-family: var(--serif); font-weight: 900; font-size: 430px; line-height: 1; letter-spacing: -0.04em; color: var(--accent); opacity: 0.1; white-space: nowrap; }
+    #s1-root .head { position: absolute; left: 90px; top: 290px; width: 900px; }
+    #s1-root .line { display: block; font-family: var(--serif); font-weight: 700; font-size: 176px; line-height: 0.98; letter-spacing: -0.02em; color: var(--ink); }
+    #s1-root .line .w { display: inline-block; }
+    #s1-root .line.acc .w { color: var(--accent); font-style: italic; font-weight: 600; }
+    #s1-root .search { position: absolute; left: 90px; top: 790px; width: 900px; height: 112px; border-radius: 56px; background: var(--surface); border: 3px solid var(--line); display: flex; align-items: center; padding: 0 38px; gap: 24px; }
+    #s1-root .search svg { flex: none; }
+    #s1-root .typed { font-family: var(--mono); font-size: 38px; color: var(--ink); white-space: nowrap; display: flex; align-items: center; }
+    #s1-root .typed span.ch { display: inline-block; opacity: 0; }
+    #s1-root .caret { display: inline-block; width: 4px; height: 46px; background: var(--accent); margin-left: 4px; opacity: 0; }
+    #s1-root .stack { position: absolute; left: 90px; top: 935px; width: 900px; height: 600px; }
+    #s1-root .res { position: absolute; left: 0; top: 0; width: 900px; height: 94px; border-radius: 26px; background: var(--panel); border: 2px solid var(--line); display: flex; align-items: center; gap: 24px; padding: 0 30px; opacity: 0; }
+    #s1-root .res .bang { flex: none; width: 52px; height: 52px; border-radius: 50%; background: #5a1f17; color: #ffb4a3; font-family: var(--mono); font-weight: 700; font-size: 32px; display: grid; place-items: center; }
+    #s1-root .res .t { font-family: var(--serif); font-size: 40px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+    #s1-root .res .tag { margin-left: auto; font-family: var(--mono); font-size: 22px; letter-spacing: 0.1em; color: #ff9a85; white-space: nowrap; }
+    #s1-root .count { position: absolute; right: 90px; top: 888px; font-family: var(--mono); font-size: 26px; letter-spacing: 0.1em; color: var(--muted); opacity: 0; }
+    #s1-root .mic { position: absolute; left: 430px; top: 880px; width: 220px; height: 220px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; opacity: 0; box-shadow: 0 0 80px rgba(255,122,89,0.55); }
+    #s1-root .ring { position: absolute; left: 430px; top: 880px; width: 220px; height: 220px; border-radius: 50%; border: 4px solid var(--accent); opacity: 0; }
+    #s1-root .say { position: absolute; left: 60px; width: 960px; top: 1170px; text-align: center; font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 150px; letter-spacing: -0.02em; color: var(--ink); opacity: 0; }
+    #s1-root .say em { color: var(--accent); font-style: italic; }
+  </style>
+
+  <div id="s1-root" data-composition-id="s1-hook" data-width="1080" data-height="1920">
+    <div class="ghost" id="s1-ghost" data-layout-allow-overflow data-layout-allow-occlusion>ouch.</div>
+
+    <div class="head">
+      <span class="line"><span class="w">Your</span> <span class="w">thumb</span></span>
+      <span class="line acc"><span class="w">hurts.</span></span>
+    </div>
+
+    <div class="search" id="s1-search">
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#b2aa9c" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <div class="typed" id="s1-typed"></div><span class="caret" id="s1-caret"></span>
+    </div>
+    <div class="count" id="s1-count">10 RESULTS</div>
+    <div class="stack" id="s1-stack">
+      <div class="res"><span class="bang">!</span><span class="t">Tendon rupture?</span><span class="tag">SCARY</span></div>
+      <div class="res"><span class="bang">!</span><span class="t">Arthritis. Forever.</span><span class="tag">SCARY</span></div>
+      <div class="res"><span class="bang">!</span><span class="t">Carpal tunnel syndrome</span><span class="tag">SCARY</span></div>
+      <div class="res"><span class="bang">!</span><span class="t">Nerve damage</span><span class="tag">SCARY</span></div>
+      <div class="res"><span class="bang">!</span><span class="t">When to seek emergency care</span><span class="tag">SCARY</span></div>
+    </div>
+
+    <div class="ring" id="s1-ring1"></div>
+    <div class="ring" id="s1-ring2"></div>
+    <div class="mic" id="s1-mic">
+      <svg width="104" height="104" viewBox="0 0 24 24" fill="none" stroke="#1c1a17" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>
+    </div>
+    <div class="say" id="s1-say">just <em>say</em> it.</div>
+    <div class="cap-zone" id="s1-caps"></div>
+  </div>
+
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      var text = "why does my thumb hurt";
+      var typed = document.getElementById("s1-typed");
+      text.split("").forEach(function (c) { var s = document.createElement("span"); s.className = "ch"; s.textContent = c === " " ? " " : c; typed.appendChild(s); });
+      var chars = typed.querySelectorAll(".ch");
+
+      // headline words
+      tl.fromTo("#s1-root .line .w", { y: 90, opacity: 0, rotate: 4 }, { y: 0, opacity: 1, rotate: 0, duration: 0.55, ease: "back.out(1.6)", stagger: 0.16 }, 0.3);
+      tl.fromTo("#s1-ghost", { x: -140, opacity: 0 }, { x: 0, opacity: 0.1, duration: 1.4, ease: "power3.out" }, 0.1);
+      tl.to("#s1-ghost", { x: 60, duration: 6, ease: "sine.inOut" }, 1.5);
+
+      // search bar + typing (voice: "You google it" at 1.64)
+      tl.fromTo("#s1-search", { y: 40, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 1.45);
+      tl.set("#s1-caret", { opacity: 1 }, 1.7);
+      tl.to(chars, { opacity: 1, duration: 0.01, stagger: 0.045 }, 1.75);
+      tl.to("#s1-caret", { opacity: 0, duration: 0.25, repeat: 3, yoyo: true, ease: "none" }, 1.7);
+
+      // scary results pile up
+      var cards = document.querySelectorAll("#s1-root .res");
+      var rots = [-2.2, 1.6, -1.1, 2.4, -1.8];
+      cards.forEach(function (c, i) {
+        tl.fromTo(c, { x: 140, y: i * 84 - 30, opacity: 0, rotate: rots[i] * 2 }, { x: 0, y: i * 84, opacity: 1, rotate: rots[i] * 0.5, duration: 0.42, ease: "back.out(1.5)" }, 2.7 + i * 0.28);
+      });
+      tl.fromTo("#s1-count", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 2.75);
+      // jitter = chaos
+      tl.to("#s1-stack", { x: 6, duration: 0.07, repeat: 9, yoyo: true, ease: "none" }, 3.6);
+
+      // "What if you could just say it" (voice ~4.42): clear the noise
+      cards.forEach(function (c, i) {
+        tl.to(c, { y: 380 + i * 24, x: (i % 2 ? 90 : -90), rotate: (i % 2 ? 14 : -14), opacity: 0, duration: 0.5, ease: "power2.in" }, 4.7 + i * 0.05);
+      });
+      tl.to("#s1-count", { opacity: 0, duration: 0.2 }, 4.65);
+      tl.to("#s1-search", { opacity: 0, scale: 0.6, duration: 0.35, ease: "power2.in" }, 4.7);
+      tl.to("#s1-root .head", { opacity: 0.25, y: -20, duration: 0.5, ease: "power2.out" }, 4.75);
+
+      tl.fromTo("#s1-mic", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(2)" }, 5.0);
+      [["#s1-ring1", 5.4], ["#s1-ring2", 5.9]].forEach(function (r) {
+        tl.fromTo(r[0], { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.4, duration: 1.1, ease: "power2.out", repeat: 1, immediateRender: false }, r[1]);
+      });
+      tl.fromTo("#s1-say", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 5.55);
+
+      // exit
+      tl.to("#s1-root > *:not(.cap-zone)", { opacity: 0, duration: 0.3, ease: "power1.in" }, 8.55);
+
+      window.hfCaps(tl, document.getElementById("s1-caps"), [
+        [1.52, 4.5, "You google it, and get <em>ten scary answers</em>."],
+        [4.7, 8.6, "What if you could just <em>say</em> where it hurts?"]
+      ]);
+      window.__timelines["s1-hook"] = tl;
+    })();
+  </script>
+</template>

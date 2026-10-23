@@ -1,0 +1,85 @@
+<template>
+  <style>
+    #s7-root { position: absolute; inset: 0; overflow: hidden; }
+    #s7-root .langs { position: absolute; left: 70px; top: 235px; width: 940px; height: 100px; border-radius: 50px; background: var(--panel); border: 3px solid var(--line); display: flex; padding: 8px; opacity: 0; }
+    #s7-root .langs .hl { position: absolute; left: 8px; top: 8px; bottom: 8px; width: 300px; border-radius: 42px; background: var(--paper); }
+    #s7-root .langs span { position: relative; flex: 1; display: grid; place-items: center; font-family: var(--serif); font-weight: 650; font-size: 40px; color: var(--ink); }
+    #s7-root .langs span.deva { font-family: var(--deva); font-size: 40px; font-weight: 700; }
+    #s7-root .win { top: 395px; opacity: 0; }
+    #s7-root .win video { position: absolute; left: 0; top: 0; width: 984px; height: 553.5px; display: block; }
+    #s7-root .phrase { position: absolute; left: 48px; width: 984px; top: 1020px; padding: 22px 36px 24px; border-radius: 30px; background: var(--panel); border: 3px solid var(--line); opacity: 0; }
+    #s7-root .phrase .ne { font-family: var(--deva); font-weight: 700; font-size: 56px; line-height: 1.3; white-space: nowrap; color: var(--ink); }
+    #s7-root .phrase .ne em { font-style: normal; color: var(--accent); }
+    #s7-root .phrase .en { font-family: var(--mono); font-size: 24px; letter-spacing: 0.1em; color: var(--muted); margin-top: 8px; }
+    #s7-root .voice { position: absolute; left: 48px; top: 1208px; width: 984px; height: 128px; border-radius: 64px; background: var(--paper); color: #2b2a27; display: flex; align-items: center; gap: 24px; padding: 0 44px 0 26px; opacity: 0; box-shadow: 0 24px 70px rgba(0,0,0,0.55), 0 0 70px rgba(255,122,89,0.3); }
+    #s7-root .voice .sp { flex: none; width: 82px; height: 82px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; }
+    #s7-root .voice .wv { flex: 1; display: flex; align-items: center; justify-content: center; height: 90px; }
+    #s7-root .voice .wv i { display: block; width: 10px; height: 80px; margin: 0 4px; border-radius: 5px; background: #e0502f; }
+    #s7-root .voice .lb { flex: none; font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.1em; color: #4f4a42; line-height: 1.35; text-align: right; }
+    #s7-root .voice .lb b { display: block; color: #b93a1c; }
+  </style>
+
+  <div id="s7-root" data-composition-id="s7-lang" data-width="1080" data-height="1920">
+    <div class="langs" id="s7-langs">
+      <div class="hl" id="s7-hl"></div>
+      <span id="s7-l1">English</span><span class="deva" id="s7-l2">नेपाली</span><span id="s7-l3">日本語</span>
+    </div>
+
+    <div class="win" id="s7-win">
+      <div class="bar"><i></i><i></i><i></i><span>AAIYA PAIN GUIDE</span></div>
+      <div class="wc">
+        <video id="s7-vid" class="clip" src="assets/video/rec-ne.mp4" muted playsinline data-start="0" data-duration="18.8" data-track-index="2"></video>
+      </div>
+    </div>
+
+    <div class="phrase" id="s7-phrase">
+      <div class="ne">मेरो दाहिने हातको <em>औंठा</em> दुखिरहेको छ</div>
+      <div class="en">“MY RIGHT THUMB IS HURTING”</div>
+    </div>
+
+    <div class="voice" id="s7-voice">
+      <div class="sp"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#1c1a17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg></div>
+      <div class="wv" id="s7-wv"></div>
+      <div class="lb"><b>APP VOICE</b>ELEVENLABS · NEPALI</div>
+    </div>
+    <div class="cap-zone" id="s7-caps"></div>
+  </div>
+
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      var wv = document.getElementById("s7-wv");
+      var amps = [0.4, 0.75, 0.5, 1, 0.65, 0.35, 0.85, 0.55, 0.95, 0.45, 0.7, 0.3, 0.8, 0.6, 0.4];
+      var bars = amps.map(function () { var b = document.createElement("i"); wv.appendChild(b); return b; });
+
+      tl.fromTo("#s7-langs", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.2);
+      tl.fromTo("#s7-win", { opacity: 0, y: 420 }, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" }, 0.3);
+      // the recording switches the app to Nepali at ~1.0 s
+      tl.set("#s7-l1", { color: "#2b2a27" }, 0);
+      tl.to("#s7-hl", { x: 315, duration: 0.55, ease: "power3.inOut" }, 1.0);
+      tl.to("#s7-l1", { color: "#f1ede4", duration: 0.3 }, 1.1);
+      tl.to("#s7-l2", { color: "#2b2a27", duration: 0.3 }, 1.2);
+      // what was typed (recording types it at ~3-5 s)
+      tl.fromTo("#s7-phrase", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.3);
+
+      // the app's own voice starts at 9.39 s of the recording and runs 8.9 s
+      tl.fromTo("#s7-voice", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 8.9);
+      bars.forEach(function (b, i) {
+        tl.fromTo(b, { scaleY: 0.15 }, { scaleY: amps[i], duration: 0.2 + (i % 3) * 0.05, ease: "sine.inOut", repeat: 21, yoyo: true, immediateRender: false }, 9.39 + i * 0.03);
+      });
+      tl.to("#s7-voice", { opacity: 0.0, y: 20, duration: 0.4, ease: "power1.in" }, 18.3);
+
+      tl.to("#s7-root > *:not(.cap-zone):not(.win)", { opacity: 0, duration: 0.3, ease: "power1.in" }, 18.45);
+      tl.to("#s7-win", { opacity: 0, duration: 0.3, ease: "power1.in" }, 18.45);
+
+      window.hfCaps(tl, document.getElementById("s7-caps"), [
+        [0.35, 2.8, "Speak in <em>Nepali</em>, and the whole app follows."],
+        [3.26, 6.9, "The screen, the answer, and the <em>voice</em> that reads it back to you."],
+        [7.17, 9.2, "Let's <em>listen</em>."],
+        [9.45, 13.7, "“This muscle pulls your thumb outward when you grip or scroll.” <em>(translated)</em>"],
+        [13.75, 18.4, "“Heavy phone use can tire it, so your right thumb may ache.” <em>(translated)</em>"]
+      ]);
+      window.__timelines["s7-lang"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,135 @@
+<template>
+  <style>
+    #s5-root { position: absolute; inset: 0; overflow: hidden; }
+    #s5-root .h { position: absolute; left: 70px; top: 245px; font-family: var(--serif); font-weight: 700; font-size: 124px; letter-spacing: -0.025em; line-height: 1; color: var(--ink); }
+    #s5-root .h .w { display: inline-block; }
+    #s5-root .h .acc { color: var(--accent); font-style: italic; font-weight: 600; }
+    #s5-root .sub { position: absolute; left: 74px; top: 398px; font-family: var(--mono); font-size: 25px; letter-spacing: 0.1em; color: var(--muted); opacity: 0; }
+    #s5-root .sub b { color: var(--accent); font-weight: 700; }
+    #s5-root .code { position: absolute; left: 70px; top: 470px; width: 940px; padding: 34px 40px; border-radius: 32px; background: #100f0d; border: 3px solid var(--line); font-family: var(--mono); font-size: 29px; line-height: 1.5; color: #d8d1c3; opacity: 0; }
+    #s5-root .code .ln { display: block; opacity: 0; white-space: nowrap; }
+    #s5-root .code .k { color: #ff9a85; }
+    #s5-root .code .s { color: #b9d9a0; }
+    #s5-root .code .m { color: #7d766b; }
+    #s5-root .q { position: absolute; left: 70px; width: 940px; height: 160px; border-radius: 32px; background: var(--panel); border: 3px solid var(--line); display: flex; align-items: center; gap: 24px; padding: 0 34px 0 28px; opacity: 0; }
+    #s5-root .q .n { flex: none; width: 74px; height: 74px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-weight: 700; font-size: 28px; display: grid; place-items: center; }
+    #s5-root .q .t { flex: 1; font-family: var(--serif); font-weight: 600; font-size: 46px; line-height: 1.1; color: var(--ink); }
+    #s5-root .pill { flex: none; position: relative; width: 250px; height: 78px; border-radius: 39px; background: var(--surface); border: 3px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; opacity: 0; }
+    #s5-root .pill .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: rgba(255,122,89,0.32); transform-origin: 0 50%; }
+    #s5-root .pill span { position: relative; font-family: var(--mono); font-weight: 700; font-size: 28px; letter-spacing: 0.08em; color: var(--ink); }
+    #s5-root .seg { flex: none; position: relative; width: 250px; height: 78px; border-radius: 39px; background: var(--surface); border: 3px solid var(--line); display: flex; opacity: 0; }
+    #s5-root .seg .hl { position: absolute; left: 4px; top: 4px; bottom: 4px; width: 118px; border-radius: 35px; background: var(--accent); }
+    #s5-root .seg span { position: relative; flex: 1; display: grid; place-items: center; font-family: var(--mono); font-weight: 700; font-size: 28px; letter-spacing: 0.1em; color: var(--ink); }
+    #s5-root .seg span.r { color: #1c1a17; }
+    #s5-root .big { position: absolute; left: 70px; top: 840px; width: 940px; height: 540px; border-radius: 34px; background: var(--panel); border: 3px solid var(--line); opacity: 0; }
+    #s5-root .big .hd { position: absolute; left: 28px; top: 40px; right: 34px; display: flex; align-items: center; gap: 24px; }
+    #s5-root .big .hd .n { flex: none; width: 74px; height: 74px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-weight: 700; font-size: 28px; display: grid; place-items: center; }
+    #s5-root .big .hd .t { font-family: var(--serif); font-weight: 600; font-size: 46px; color: var(--ink); }
+    #s5-root .cand { position: absolute; left: 38px; right: 38px; height: 58px; display: flex; align-items: center; gap: 18px; }
+    #s5-root .cand .nm { width: 470px; font-family: var(--serif); font-size: 33px; color: var(--ink); white-space: nowrap; }
+    #s5-root .cand .tr { flex: 1; height: 24px; border-radius: 12px; background: #34302a; overflow: hidden; }
+    #s5-root .cand .tr i { display: block; height: 100%; width: 100%; border-radius: 12px; background: #9b9488; transform-origin: 0 50%; }
+    #s5-root .cand.pick .nm { font-weight: 800; }
+    #s5-root .cand.pick .tr i { background: var(--accent); }
+    #s5-root .cand .pc { width: 86px; text-align: right; font-family: var(--mono); font-weight: 700; font-size: 30px; color: var(--ink); }
+    #s5-root .cand .pk { position: absolute; left: 0; top: -22px; font-family: var(--mono); font-size: 22px; letter-spacing: 0.14em; color: var(--accent); font-weight: 700; }
+    #s5-root .meter { position: absolute; left: 38px; right: 38px; top: 464px; }
+    #s5-root .meter .lb { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 24px; letter-spacing: 0.08em; color: var(--muted); }
+    #s5-root .meter .lb b { color: var(--ink); }
+    #s5-root .meter .tk { margin-top: 10px; height: 20px; border-radius: 10px; background: #34302a; position: relative; overflow: hidden; }
+    #s5-root .meter .tk i { position: absolute; left: 0; top: 0; bottom: 0; width: 71%; border-radius: 10px; background: var(--accent); transform-origin: 0 50%; }
+    #s5-root .finger { position: absolute; left: 700px; top: 1081px; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%; border: 5px solid var(--ink); background: rgba(241,237,228,0.2); opacity: 0; }
+    #s5-root .tip { position: absolute; left: 640px; top: 1140px; padding: 12px 22px; border-radius: 20px; background: var(--ink); color: #1c1a17; font-family: var(--mono); font-weight: 700; font-size: 26px; letter-spacing: 0.08em; opacity: 0; }
+  </style>
+
+  <div id="s5-root" data-composition-id="s5-jev" data-width="1080" data-height="1920">
+    <div class="h" id="s5-h"><span class="w">Jev</span> <span class="w acc">decides.</span></div>
+    <div class="sub" id="s5-sub">ONE API CALL · <b>3 QUESTIONS</b> · 250 CANDIDATE PARTS</div>
+
+    <div class="code" id="s5-code">
+      <span class="ln"><span class="m">POST</span> /alpha/decisions</span>
+      <span class="ln">{ <span class="k">"model"</span>: <span class="s">"typesafe/jev-1.13"</span>,</span>
+      <span class="ln">&nbsp;&nbsp;<span class="k">"state"</span>: {</span>
+      <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"user_said"</span>: <span class="s">"my right thumb is hurting"</span> },</span>
+      <span class="ln">&nbsp;&nbsp;<span class="k">"questions"</span>: [ <span class="s">is_body</span>, <span class="s">side</span>, <span class="s">part</span> ] }</span>
+      <span class="ln rs"><span class="m">&#8627; answers</span></span>
+      <span class="ln rs">{ <span class="k">"is_body"</span>: { <span class="k">"noul"</span>: <span class="s">0.98</span> },</span>
+      <span class="ln rs">&nbsp;&nbsp;<span class="k">"side"</span>: { <span class="k">"choice"</span>: <span class="s">"right"</span> },</span>
+      <span class="ln rs">&nbsp;&nbsp;<span class="k">"part"</span>: { <span class="k">"choice"</span>: <span class="s">"abductor_pollicis_longus"</span>,</span>
+      <span class="ln rs">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"confidence"</span>: <span class="s">0.71</span> } }</span>
+    </div>
+
+    <div class="q" id="s5-q1" style="top:470px">
+      <div class="n">Q1</div><div class="t">Is it about your body?</div>
+      <div class="pill" id="s5-a1"><div class="fill" id="s5-a1f"></div><span>YES · 98%</span></div>
+    </div>
+    <div class="q" id="s5-q2" style="top:660px">
+      <div class="n">Q2</div><div class="t">Left or right?</div>
+      <div class="seg" id="s5-a2"><div class="hl" id="s5-a2h"></div><span>LEFT</span><span class="r">RIGHT</span></div>
+    </div>
+
+    <div class="big" id="s5-big">
+      <div class="hd"><div class="n">Q3</div><div class="t">Which muscle?</div></div>
+      <div class="cand pick" style="top:150px"><span class="pk">JEV'S PICK</span><span class="nm">Abductor pollicis longus</span><span class="tr"><i id="s5-b1"></i></span><span class="pc">62%</span></div>
+      <div class="cand" style="top:212px"><span class="nm">Extensor pollicis brevis</span><span class="tr"><i id="s5-b2"></i></span><span class="pc">15%</span></div>
+      <div class="cand" style="top:270px"><span class="nm">Flexor pollicis longus</span><span class="tr"><i id="s5-b3"></i></span><span class="pc">10%</span></div>
+      <div class="cand" style="top:328px"><span class="nm">Opponens pollicis</span><span class="tr"><i id="s5-b4"></i></span><span class="pc">7%</span></div>
+      <div class="cand" style="top:386px"><span class="nm">Abductor pollicis brevis</span><span class="tr"><i id="s5-b5"></i></span><span class="pc">4%</span></div>
+      <div class="meter"><div class="lb"><span>JEV CONFIDENCE</span><b>71% SURE</b></div><div class="tk"><i id="s5-m"></i></div></div>
+    </div>
+
+    <div class="finger" id="s5-fg"></div>
+    <div class="tip" id="s5-tip">TAP TO CORRECT</div>
+    <div class="cap-zone" id="s5-caps"></div>
+  </div>
+
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#s5-h .w", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.14 }, 0.3);
+      tl.fromTo("#s5-sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.2);
+
+      // the API call
+      tl.fromTo("#s5-code", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 2.4);
+      tl.fromTo("#s5-code .ln:not(.rs)", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out", stagger: 0.3 }, 2.7);
+      tl.fromTo("#s5-code .ln.rs", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out", stagger: 0.28 }, 3.9);
+      tl.to("#s5-code", { opacity: 0, y: -60, duration: 0.45, ease: "power2.in" }, 5.2);
+
+      // Q1
+      tl.fromTo("#s5-q1", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 5.45);
+      tl.fromTo("#s5-a1", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 6.3);
+      tl.fromTo("#s5-a1f", { scaleX: 0 }, { scaleX: 0.98, duration: 0.7, ease: "power3.out" }, 6.35);
+      // Q2
+      tl.fromTo("#s5-q2", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 7.0);
+      tl.fromTo("#s5-a2", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 7.6);
+      tl.fromTo("#s5-a2h", { x: 0 }, { x: 122, duration: 0.5, ease: "power3.inOut" }, 7.95);
+      // Q3 box reveals via clip-path then expands
+      var closed = "inset(0px 0px 380px 0px round 34px)", open = "inset(0px 0px 0px 0px round 34px)";
+      tl.fromTo("#s5-big", { opacity: 0, clipPath: closed }, { opacity: 1, clipPath: closed, duration: 0.45, ease: "power3.out" }, 8.2);
+      tl.to("#s5-big", { clipPath: open, duration: 0.7, ease: "power3.inOut" }, 9.4);
+      // bars (voice: confidence for every candidate 9.06)
+      [["#s5-b1", 1], ["#s5-b2", 0.15 / 0.62], ["#s5-b3", 0.10 / 0.62], ["#s5-b4", 0.07 / 0.62], ["#s5-b5", 0.04 / 0.62]].forEach(function (b, i) {
+        tl.fromTo(b[0], { scaleX: 0 }, { scaleX: b[1], duration: 0.8, ease: "power3.out" }, 9.9 + i * 0.16);
+      });
+      tl.fromTo("#s5-m", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power3.out" }, 10.9);
+
+      // tap to correct (voice 11.7)
+      tl.fromTo("#s5-fg", { opacity: 0, x: 320, y: 90, scale: 1 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.7, ease: "power3.inOut" }, 12.4);
+      tl.to("#s5-fg", { scale: 0.7, duration: 0.15, ease: "power2.in" }, 13.1);
+      tl.to("#s5-fg", { scale: 1.8, opacity: 0, duration: 0.45, ease: "power2.out" }, 13.25);
+      tl.fromTo("#s5-tip", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 12.9);
+
+      tl.to("#s5-root > *:not(.cap-zone)", { opacity: 0, duration: 0.3, ease: "power1.in" }, 15.4);
+
+      window.hfCaps(tl, document.getElementById("s5-caps"), [
+        [0.35, 2.0, "Jev does not just guess."],
+        [2.3, 5.0, "In a single call, it answers <em>three questions</em>."],
+        [5.49, 9.5, "Your <em>body</em>? <em>Left</em> or <em>right</em>? Which <em>muscle</em>?"],
+        [9.81, 12.5, "You see its <em>confidence</em> for every candidate…"],
+        [12.6, 15.5, "…and can correct it with <em>one tap</em>."]
+      ]);
+      window.__timelines["s5-jev"] = tl;
+    })();
+  </script>
+</template>

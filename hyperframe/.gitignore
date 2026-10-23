@@ -1,0 +1,30 @@
+node_modules/
+.hyperframes/
+.media/
+.snap*/
+audio_meta.json
+audio_request.json
+
+# capture tooling output (the scripts stay, their scratch files do not)
+capture-tools/*.log
+capture-tools/*.png
+capture-tools/*.jpg
+capture-tools/rec-*.json
+capture-tools/*.mp3
+
+# renders: only the final MP4 is kept
+renders/*.log
+renders/old/
+renders/aaiya-pain-guide-9x16-v*.mp4
+
+# keep only the assets the composition uses
+assets/captures/*
+!assets/captures/crop-card-head.png
+!assets/captures/crop-exercise.png
+!assets/captures/d-en-3-answer.png
+!assets/captures/d-en-card-tall.png
+assets/video/*.webm
+assets/audio/vo-0*.wav
+assets/audio/*.bak
+assets/bgm/track.wav
+assets/bgm/*.log

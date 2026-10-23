@@ -1,0 +1,12 @@
+import { open, ask, sleep, out } from './lib.mjs';
+const [theme = 'dark', lang = 'en', phrase = 'my right thumb is hurting', tag = 'en'] = process.argv.slice(2);
+const { browser, page } = await open({ theme, lang, w: 1600, h: 900, dpr: 2 });
+await sleep(1500);
+await page.screenshot({ path: `${out}d-${tag}-0-home.png` });
+await ask(page, phrase);
+await page.screenshot({ path: `${out}d-${tag}-1-typed.png` });
+await page.keyboard.press('Enter');
+await sleep(2600); await page.screenshot({ path: `${out}d-${tag}-2-locating.png` });
+await sleep(9000); await page.screenshot({ path: `${out}d-${tag}-3-answer.png` });
+console.log(await page.evaluate(() => [...document.querySelectorAll('#tab-chat,#tab-details')].length));
+await browser.close();

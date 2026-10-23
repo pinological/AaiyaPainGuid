@@ -1,0 +1,146 @@
+<template>
+  <style>
+    #s3-root { position: absolute; inset: 0; overflow: hidden; }
+    #s3-root .h { position: absolute; left: 70px; top: 250px; font-family: var(--serif); font-weight: 700; font-size: 112px; letter-spacing: -0.025em; line-height: 1; color: var(--ink); }
+    #s3-root .h .w { display: inline-block; }
+    #s3-root .h .acc { color: var(--accent); font-style: italic; font-weight: 600; }
+    #s3-root .node { position: absolute; left: 70px; width: 880px; height: 214px; border-radius: 36px; background: var(--panel); border: 3px solid var(--line); display: flex; align-items: center; padding: 0 34px 0 30px; gap: 28px; opacity: 0; }
+    #s3-root .badge { flex: none; width: 92px; height: 92px; border-radius: 50%; background: var(--surface); border: 3px solid var(--line); font-family: var(--mono); font-weight: 700; font-size: 34px; color: var(--muted); display: grid; place-items: center; }
+    #s3-root .txt { flex: 1; min-width: 0; }
+    #s3-root .tag { font-family: var(--mono); font-weight: 700; font-size: 25px; letter-spacing: 0.16em; color: var(--accent); }
+    #s3-root .ttl { font-family: var(--serif); font-weight: 650; font-size: 54px; line-height: 1.1; color: var(--ink); margin-top: 6px; white-space: nowrap; }
+    #s3-root .det { font-family: var(--mono); font-size: 25px; line-height: 1.35; color: var(--muted); margin-top: 8px; }
+    #s3-root .det .deva { font-family: var(--deva); font-size: 28px; }
+    #s3-root .wid { flex: none; width: 210px; height: 150px; position: relative; display: flex; align-items: center; justify-content: center; }
+    #s3-root .bar { display: block; width: 11px; height: 100px; margin: 0 4px; border-radius: 6px; background: var(--accent); }
+    #s3-root .pbar { position: absolute; left: 0; height: 22px; border-radius: 11px; background: var(--line); }
+    #s3-root .pbar i { display: block; height: 100%; border-radius: 11px; background: var(--accent); }
+    #s3-root .pn { position: absolute; right: 0; font-family: var(--mono); font-size: 24px; color: var(--muted); }
+    #s3-root .brace { font-family: var(--mono); font-weight: 700; font-size: 96px; color: var(--accent); letter-spacing: -0.05em; }
+    #s3-root .thumb { display: block; width: 210px; height: 150px; object-fit: cover; border-radius: 18px; border: 3px solid var(--line); background: var(--panel); }
+    #s3-root .conn { position: absolute; left: 146px; width: 6px; border-radius: 3px; background: var(--line); height: 36px; transform-origin: 50% 0%; }
+    #s3-root .conn.hot { background: var(--accent); }
+    #s3-root .packet { position: absolute; left: 140px; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 24px 6px rgba(255,122,89,0.7); opacity: 0; }
+  </style>
+
+  <div id="s3-root" data-composition-id="s3-pipeline" data-width="1080" data-height="1920">
+    <div class="h" id="s3-h"><span class="w">How</span> <span class="w">it</span> <span class="w acc">works.</span></div>
+
+    <div class="conn" id="s3-c1" style="top:604px"></div>
+    <div class="conn" id="s3-c2" style="top:852px"></div>
+    <div class="conn" id="s3-c3" style="top:1100px"></div>
+    <div class="packet" id="s3-p1" style="top:590px"></div>
+    <div class="packet" id="s3-p2" style="top:838px"></div>
+    <div class="packet" id="s3-p3" style="top:1086px"></div>
+
+    <div class="node" id="s3-n1" style="top:392px">
+      <div class="badge" id="s3-b1">01</div>
+      <div class="txt">
+        <div class="tag">YOU SPEAK</div>
+        <div class="ttl">Say it or type it</div>
+        <div class="det">English · <span class="deva">नेपाली</span> · 日本語</div>
+      </div>
+      <div class="wid" id="s3-w1"></div>
+    </div>
+    <div class="node" id="s3-n2" style="top:640px">
+      <div class="badge" id="s3-b2">02</div>
+      <div class="txt">
+        <div class="tag">JEV · DECISIONS API</div>
+        <div class="ttl">Picks the muscle</div>
+        <div class="det">body? · side · part</div>
+      </div>
+      <div class="wid" id="s3-w2">
+        <div class="pbar" style="top:26px;width:150px"><i id="s3-pb1" style="width:100%"></i></div><span class="pn" style="top:20px" id="s3-pn1">62%</span>
+        <div class="pbar" style="top:64px;width:150px"><i id="s3-pb2" style="width:100%"></i></div><span class="pn" style="top:58px">15%</span>
+        <div class="pbar" style="top:102px;width:150px"><i id="s3-pb3" style="width:100%"></i></div><span class="pn" style="top:96px">10%</span>
+      </div>
+    </div>
+    <div class="node" id="s3-n3" style="top:888px">
+      <div class="badge" id="s3-b3">03</div>
+      <div class="txt">
+        <div class="tag">DEEPSEEK</div>
+        <div class="ttl">Writes the guide</div>
+        <div class="det">structured JSON card</div>
+      </div>
+      <div class="wid" id="s3-w3"><img class="thumb" id="s3-th3" src="assets/captures/crop-card-head.png" alt="" /></div>
+    </div>
+    <div class="node" id="s3-n4" style="top:1136px">
+      <div class="badge" id="s3-b4">04</div>
+      <div class="txt">
+        <div class="tag">YOU</div>
+        <div class="ttl">Gentle exercises</div>
+        <div class="det">reps · cautions · red flags</div>
+      </div>
+      <div class="wid" id="s3-w4"><img class="thumb" id="s3-th4" src="assets/captures/crop-exercise.png" alt="" /></div>
+    </div>
+    <div class="cap-zone" id="s3-caps"></div>
+  </div>
+
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      var $ = function (s) { return document.querySelector(s); };
+
+      // waveform bars (node 1)
+      var w1 = $("#s3-w1");
+      var amps = [0.35, 0.8, 0.55, 1, 0.7, 0.45, 0.9, 0.6, 0.3];
+      var bars = [];
+      amps.forEach(function (a, i) { var b = document.createElement("span"); b.className = "bar"; w1.appendChild(b); bars.push(b); });
+
+      // heading
+      tl.fromTo("#s3-h .w", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.12 }, 0.3);
+
+      var entries = [["#s3-n1", 2.05], ["#s3-n2", 6.25], ["#s3-n3", 10.85], ["#s3-n4", 14.2]];
+      entries.forEach(function (e) {
+        tl.fromTo(e[0], { opacity: 0, x: 140 }, { opacity: 1, x: 0, duration: 0.6, ease: "expo.out" }, e[1]);
+      });
+
+      // highlight windows (active node pops, others dim)
+      function active(n, a, b) {
+        var id = "#s3-n" + n;
+        tl.to(id, { borderColor: "#ff7a59", boxShadow: "0 0 70px rgba(255,122,89,0.32)", backgroundColor: "#241b16", scale: 1.025, duration: 0.35, ease: "power2.out" }, a);
+        tl.to("#s3-b" + n, { backgroundColor: "#ff7a59", color: "#1c1a17", borderColor: "#ff7a59", duration: 0.35 }, a);
+        tl.to(id, { borderColor: "#3a3630", boxShadow: "0 0 0 rgba(255,122,89,0)", backgroundColor: "#1c1a17", scale: 1, duration: 0.45, ease: "power2.inOut" }, b);
+        tl.to("#s3-b" + n, { backgroundColor: "#26231f", color: "#b2aa9c", borderColor: "#3a3630", duration: 0.45 }, b);
+      }
+      active(1, 2.3, 6.1);
+      active(2, 6.5, 10.7);
+      active(3, 11.0, 15.5);
+      tl.to("#s3-n4", { borderColor: "#ff7a59", boxShadow: "0 0 70px rgba(255,122,89,0.3)", duration: 0.5 }, 14.5);
+
+      // waveform
+      bars.forEach(function (b, i) {
+        tl.fromTo(b, { scaleY: 0.12 }, { scaleY: amps[i], duration: 0.22 + (i % 4) * 0.05, ease: "sine.inOut", repeat: 9, yoyo: true }, 2.4 + i * 0.03);
+        tl.to(b, { scaleY: 0.12, duration: 0.3, ease: "power2.out" }, 6.0);
+      });
+
+      // Jev bars fill
+      [["#s3-pb1", 0.62], ["#s3-pb2", 0.15], ["#s3-pb3", 0.10]].forEach(function (r, i) {
+        tl.fromTo(r[0], { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: r[1] / 0.62, transformOrigin: "0 50%", duration: 0.8, ease: "power3.out" }, 7.1 + i * 0.12);
+      });
+      // real UI thumbnails pop in with their nodes
+      tl.fromTo("#s3-th3", { scale: 0.6, opacity: 0, rotate: -4 }, { scale: 1, opacity: 1, rotate: 0, duration: 0.55, ease: "back.out(1.8)" }, 11.2);
+      tl.fromTo("#s3-th4", { scale: 0.6, opacity: 0, rotate: 4 }, { scale: 1, opacity: 1, rotate: 0, duration: 0.55, ease: "back.out(1.8)" }, 14.4);
+
+      // connectors + traveling packets
+      [["#s3-c1", 604, 36, "#s3-p1", 6.0], ["#s3-c2", 852, 36, "#s3-p2", 10.4], ["#s3-c3", 1100, 36, "#s3-p3", 14.0]].forEach(function (c) {
+        tl.fromTo(c[0], { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: "power2.out" }, c[4] - 0.1);
+      });
+      [["#s3-p1", 6.1], ["#s3-p2", 10.5], ["#s3-p3", 14.0]].forEach(function (p) {
+        tl.fromTo(p[0], { opacity: 1, y: 0 }, { opacity: 0, y: 52, duration: 0.6, ease: "power2.in", immediateRender: false }, p[1]);
+      });
+      // hold packets visible on hand-off
+      tl.set("#s3-p1", { opacity: 0 }, 0); tl.set("#s3-p2", { opacity: 0 }, 0); tl.set("#s3-p3", { opacity: 0 }, 0);
+
+      // exit
+      tl.to("#s3-root > *:not(.cap-zone)", { opacity: 0, duration: 0.3, ease: "power1.in" }, 15.7);
+
+      window.hfCaps(tl, document.getElementById("s3-caps"), [
+        [2.05, 6.0, "<em>1.</em> You speak, in English, Nepali, or even Japanese."],
+        [6.3, 10.7, "<em>2.</em> Jev, a decision model, works out which muscle you mean."],
+        [10.85, 15.7, "<em>3.</em> DeepSeek writes a short, friendly guide for that muscle."]
+      ]);
+      window.__timelines["s3-pipeline"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,85 @@
+<template>
+  <style>
+    #s4-root { position: absolute; inset: 0; overflow: hidden; }
+    #s4-root .t { position: absolute; left: 60px; width: 960px; top: 235px; text-align: center; font-family: var(--serif); font-weight: 700; font-size: 84px; letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); }
+    #s4-root .t .w { display: inline-block; }
+    #s4-root .t .acc { color: var(--accent); font-style: italic; font-weight: 600; }
+    #s4-root .lbl { position: absolute; left: 60px; width: 960px; top: 190px; text-align: center; font-family: var(--mono); font-size: 24px; letter-spacing: 0.18em; color: var(--muted); opacity: 0; }
+    #s4-root .lbl i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #ff5a4a; margin-right: 12px; }
+    #s4-root .win { top: 410px; opacity: 0; }
+    #s4-root .win video { position: absolute; left: 0; top: 0; width: 984px; height: 553.5px; display: block; }
+    #s4-root .rows { position: absolute; left: 48px; top: 1046px; width: 984px; }
+    #s4-root .chip { width: 984px; height: 88px; margin-bottom: 12px; padding: 0 28px 0 22px; border-radius: 26px; background: var(--panel); border: 3px solid var(--line); opacity: 0; display: flex; align-items: center; gap: 20px; }
+    #s4-root .chip .ok { flex: none; width: 48px; height: 48px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; }
+    #s4-root .chip .k { flex: none; width: 300px; font-family: var(--mono); font-weight: 700; font-size: 24px; letter-spacing: 0.08em; color: var(--accent); }
+    #s4-root .chip .v { flex: 1; font-family: var(--serif); font-weight: 650; font-size: 41px; line-height: 1.05; color: var(--ink); white-space: nowrap; }
+    #s4-root .card { position: absolute; left: 48px; top: 1046px; width: 984px; height: 300px; border-radius: 32px; background: var(--panel); border: 3px solid var(--accent); box-shadow: 0 0 70px rgba(255,122,89,0.25); opacity: 0; display: flex; align-items: center; gap: 34px; padding: 0 40px; }
+    #s4-root .card .big { flex: none; min-width: 270px; font-family: var(--serif); font-weight: 800; font-size: 130px; line-height: 0.95; color: var(--accent); letter-spacing: -0.03em; }
+    #s4-root .card .tx { font-family: var(--serif); font-size: 40px; line-height: 1.18; color: var(--ink); }
+    #s4-root .card .mo { display: block; font-family: var(--mono); font-size: 24px; letter-spacing: 0.06em; line-height: 1.45; color: var(--muted); margin-top: 12px; }
+  </style>
+
+  <div id="s4-root" data-composition-id="s4-demo" data-width="1080" data-height="1920">
+    <div class="lbl" id="s4-lbl"><i></i>LIVE SCREEN RECORDING · REAL TIME</div>
+    <div class="t" id="s4-t"><span class="w">Say it.</span> <span class="w acc">Watch it fly.</span></div>
+
+    <div class="win" id="s4-win">
+      <div class="bar"><i></i><i></i><i></i><span>AAIYA PAIN GUIDE</span></div>
+      <div class="wc">
+        <video id="s4-vid" class="clip" src="assets/video/rec-en.mp4" muted playsinline data-start="0" data-duration="17.1" data-track-index="2"></video>
+      </div>
+    </div>
+
+    <div class="rows" id="s4-rows">
+      <div class="chip" id="s4-c1"><div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c1a17" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div><div class="k">ABOUT YOUR BODY?</div><div class="v">Yes · 98%</div></div>
+      <div class="chip" id="s4-c2"><div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c1a17" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div><div class="k">WHICH SIDE?</div><div class="v">Right</div></div>
+      <div class="chip" id="s4-c3"><div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c1a17" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div><div class="k">WHICH MUSCLE?</div><div class="v">Abductor pollicis longus</div></div>
+    </div>
+
+    <div class="card" id="s4-gsap">
+      <div class="big">GSAP</div>
+      <div class="tx">Camera fly-in<span class="mo">camera.position + controls.target<br>1.1 s · power3.inOut<br>the muscle glow pulses while DeepSeek writes</span></div>
+    </div>
+    <div class="card" id="s4-stat">
+      <div class="big" id="s4-n">0</div>
+      <div class="tx">named parts on a real 3D anatomy model<span class="mo">DRAG TO ORBIT · CLICK ANY MUSCLE · OR JUST DESCRIBE IT</span></div>
+    </div>
+    <div class="cap-zone" id="s4-caps"></div>
+  </div>
+
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#s4-lbl", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.2);
+      tl.fromTo("#s4-t .w", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.14 }, 0.3);
+      tl.fromTo("#s4-win", { opacity: 0, y: 380, rotate: 1.2 }, { opacity: 1, y: 0, rotate: 0, duration: 0.85, ease: "expo.out" }, 0.2);
+
+      // Jev's three answers (voice 4.39 -> 8.8)
+      [["#s4-c1", 4.4], ["#s4-c2", 6.45], ["#s4-c3", 7.65]].forEach(function (c) {
+        tl.fromTo(c[0], { opacity: 0, x: 120 }, { opacity: 1, x: 0, duration: 0.55, ease: "back.out(1.5)" }, c[1]);
+        tl.to(c[0], { borderColor: "#ff7a59", duration: 0.3 }, c[1] + 0.25);
+      });
+      // the camera flies (voice 9.03): chips make way for the GSAP card
+      tl.to("#s4-rows", { opacity: 0, y: 30, duration: 0.4, ease: "power2.in" }, 8.85);
+      tl.fromTo("#s4-gsap", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 9.1);
+      tl.to("#s4-gsap", { opacity: 0, y: -20, duration: 0.35, ease: "power2.in" }, 13.45);
+      // 646 count-up (voice 13.86)
+      tl.fromTo("#s4-stat", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 13.8);
+      var cnt = { v: 0 };
+      tl.to(cnt, { v: 646, duration: 1.3, ease: "power2.out", onUpdate: function () { document.getElementById("s4-n").textContent = Math.round(cnt.v); } }, 13.9);
+
+      tl.to("#s4-root > *:not(.cap-zone):not(.win)", { opacity: 0, duration: 0.3, ease: "power1.in" }, 16.8);
+      tl.to("#s4-win", { opacity: 0, duration: 0.3, ease: "power1.in" }, 16.8);
+
+      window.hfCaps(tl, document.getElementById("s4-caps"), [
+        [0.35, 2.1, "Say it like you would tell a friend."],
+        [2.45, 4.2, "“My right thumb is <em>hurting</em>.”"],
+        [4.39, 8.9, "It checks it is about your <em>body</em>, picks the <em>side</em>, and finds the <em>muscle</em>."],
+        [9.03, 13.6, "Then the camera flies straight there, a smooth <em>GSAP</em> animation…"],
+        [13.86, 16.9, "…on a real <em>3D anatomy model</em>."]
+      ]);
+      window.__timelines["s4-demo"] = tl;
+    })();
+  </script>
+</template>
